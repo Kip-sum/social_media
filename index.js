@@ -34,7 +34,5 @@ if (typeof module !== "undefined") {
   module.exports = { fetchPosts, displayPosts };
 }
 
-// IMPORTANT: auto run in browser / jsdom
-if (typeof window !== "undefined") {
-  window.addEventListener("DOMContentLoaded", fetchPosts);
-}
+// 🚀 IMPORTANT FIX: force execution in test environments too
+fetchPosts();
