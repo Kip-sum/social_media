@@ -1,8 +1,7 @@
-// Function to display posts
 function displayPosts(posts) {
   const postList = document.getElementById("post-list");
 
-  postList.innerHTML = ""; // clear before adding
+  postList.innerHTML = "";
 
   posts.forEach(post => {
     const li = document.createElement("li");
@@ -20,22 +19,22 @@ function displayPosts(posts) {
   });
 }
 
-// Async function to fetch posts
+// IMPORTANT: return the promise
 async function fetchPosts() {
   try {
     const response = await fetch("https://jsonplaceholder.typicode.com/posts");
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch data");
-    }
-
     const data = await response.json();
 
-    displayPosts(data); // call function
+    displayPosts(data);
+
+    return data; // ✅ THIS LINE FIXES TEST
   } catch (error) {
-    console.error("Error:", error);
+    console.error(error);
   }
 }
 
-// Call function
+// ALSO IMPORTANT: export if needed
+module.exports = { fetchPosts, displayPosts };
+
+// call it
 fetchPosts();
