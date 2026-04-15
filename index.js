@@ -19,22 +19,17 @@ function displayPosts(posts) {
   });
 }
 
-// IMPORTANT: return the promise
 async function fetchPosts() {
-  try {
-    const response = await fetch("https://jsonplaceholder.typicode.com/posts");
-    const data = await response.json();
+  const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+  const data = await response.json();
 
-    displayPosts(data);
+  displayPosts(data);
 
-    return data; // ✅ THIS LINE FIXES TEST
-  } catch (error) {
-    console.error(error);
-  }
+  return data;
 }
 
-// ALSO IMPORTANT: export if needed
-module.exports = { fetchPosts, displayPosts };
-
-// call it
-fetchPosts();
+// IMPORTANT: export for tests
+module.exports = {
+  fetchPosts,
+  displayPosts
+};
