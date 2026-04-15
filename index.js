@@ -1,9 +1,14 @@
+async function fetchPosts() {
+  const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+  const data = await response.json();
+
+  displayPosts(data);
+
+  return data;
+}
+
 function displayPosts(posts) {
-  // Only run DOM code if browser exists
-  if (typeof document === "undefined") return;
-
   const postList = document.getElementById("post-list");
-
   if (!postList) return;
 
   postList.innerHTML = "";
@@ -19,20 +24,17 @@ function displayPosts(posts) {
 
     li.appendChild(h1);
     li.appendChild(p);
+
     postList.appendChild(li);
   });
 }
 
-async function fetchPosts() {
-  const response = await fetch("https://jsonplaceholder.typicode.com/posts");
-  const data = await response.json();
-
-  displayPosts(data);
-
-  return data;
-}
-
-// safe export for tests
+// export for tests
 if (typeof module !== "undefined") {
   module.exports = { fetchPosts, displayPosts };
+}
+
+// IMPORTANT: auto run in browser / jsdom
+if (typeof window !== "undefined") {
+  window.addEventListener("DOMContentLoaded", fetchPosts);
 }
